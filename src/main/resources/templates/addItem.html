@@ -45,20 +45,20 @@
                        required="" type=number>
 
             </div>
+            <label th:if="${#fields.hasErrors('startBiddingPrice')}" th:class="'error'" th:errors="*{startBiddingPrice}" class="col-lg-4 control-label" style="color:red;" ></label>
         </div>
 
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_categorie">Product category</label>
+            <label class="col-md-4 control-label" for="product_category">Product category</label>
             <div class="col-md-4">
-                <select id="product_categorie" name="category" class="form-control">
-                    <option value="" selected disabled hidden>Choose here</option>
-                    <option>Electronics</option>
-                    <option>Auto</option>
-                    <option>Books</option>
-                    <option>Games</option>
+
+                <select name="color" id="product_category" th:field="*{category}">
+                    <option th:each="colorOpt : ${T(com.sda.onlineAuction.model.Category).values()}"
+                            th:value="${colorOpt.name()}" th:text="${colorOpt.name()}"></option>
                 </select>
+
             </div>
         </div>
 
