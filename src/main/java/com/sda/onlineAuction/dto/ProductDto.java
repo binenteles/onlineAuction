@@ -9,11 +9,13 @@ import lombok.ToString;
 @ToString
 public class ProductDto {
 
+    private String id;
     private String name;
     private String description;
     private String startBiddingPrice;
     private String category;
     private String endDateTime;
+    private String image;
 
 
 }

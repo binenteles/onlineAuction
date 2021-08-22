@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
-    <title>This is the Online Auction application</title>
+    <title>This is the online Auction aplication</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}"/>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/fontawesome.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/tooplate-main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/owl.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/custom.css}"/>
+
 </head>
 <body>
-        <p>This is a test! Don't be scared!</p>
+<div class="featured container no-gutter">
+
+    <div class="row posts">
+        <div id="1" class="item new col-md-4" th:each="product:${products}">
+            <a th:href="@{/item/{id}(id=${product.id})}">
+                <div class="featured-item">
+                    <img th:src="${'data:image/png;base64,'+ product.image}" alt="">
+                    <h4 th:text="${product.name}"></h4>
+                    <h4 th:text="${product.description}"></h4>
+                    <h6 th:text="${product.startBiddingPrice}"></h6>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

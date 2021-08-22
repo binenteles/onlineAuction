@@ -8,7 +8,8 @@
     <title>Title</title>
 </head>
 <body>
-<form class="form-horizontal" th:object="${productDto}" th:action="@{/addItem}" method="post">
+<form class="form-horizontal" th:object="${productDto}" th:action="@{/addItem}" method="post"
+      enctype="multipart/form-data">
     <fieldset>
 
         <!-- Form Name -->
@@ -28,13 +29,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_description">Product description</label>
             <div class="col-md-4">
-                <input id="product_description" th:field="*{description}"  placeholder="Product description"
+                <input id="product_description" th:field="*{description}" placeholder="Product description"
                        class="form-control input-md"
                        required="" type="text">
 
             </div>
         </div>
-
 
         <!-- product starting price area-->
         <div class="form-group">
@@ -45,9 +45,9 @@
                        required="" type=number>
 
             </div>
-            <label th:if="${#fields.hasErrors('startBiddingPrice')}" th:class="'error'" th:errors="*{startBiddingPrice}" class="col-lg-4 control-label" style="color:red;" ></label>
+            <label th:if="${#fields.hasErrors('startBiddingPrice')}" th:class="'error'" th:errors="*{startBiddingPrice}"
+                   class="col-lg-4 control-label" style="color:red;"></label>
         </div>
-
 
         <!-- Select Basic -->
         <div class="form-group">
@@ -66,9 +66,20 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="auction_end_time">Auction End Date and Time </label>
             <div class="col-md-4">
-                <input id="auction_end_time" th:field="*{endDateTime}"  placeholder="Auction End Date and Time"
+                <input id="auction_end_time" th:field="*{endDateTime}" placeholder="Auction End Date and Time"
                        class="form-control input-md"
-                       required="" type= "datetime-local">
+                       required="" type="datetime-local">
+
+            </div>
+        </div>
+
+        <!-- product image area-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_image">Product name</label>
+            <div class="col-md-4">
+                <input id="product_image" name="productImage" accept="image/png, image/jpg, image/jpeg"
+                       placeholder="Product image" class="form-control input-md"
+                       required="" type="file">
 
             </div>
         </div>

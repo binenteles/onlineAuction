@@ -1,6 +1,7 @@
 package com.sda.onlineAuction.service;
 
 import com.sda.onlineAuction.dto.UserDto;
+import com.sda.onlineAuction.mapper.UserMapper;
 import com.sda.onlineAuction.model.User;
 import com.sda.onlineAuction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public void add(UserDto userDto) {
-        User user = new User();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
+        //pasul 1: sa obtinem un user pe baza UserDto
+        User user = userMapper.map(userDto);
+        //pasul 2: sa salvam un user cu ajutorul UserRepository
         userRepository.save(user);
     }
 }
