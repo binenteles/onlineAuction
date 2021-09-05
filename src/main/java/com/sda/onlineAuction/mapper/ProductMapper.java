@@ -1,6 +1,7 @@
 package com.sda.onlineAuction.mapper;
 
 import com.sda.onlineAuction.dto.ProductDto;
+import com.sda.onlineAuction.model.Bid;
 import com.sda.onlineAuction.model.Category;
 import com.sda.onlineAuction.model.Product;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -9,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductMapper {
@@ -27,18 +30,46 @@ public class ProductMapper {
         return product;
     }
 
-    public ProductDto map(Product product){
+    public ProductDto map(Product product, String email){
         ProductDto productDto = new ProductDto();
         productDto.setId(product.getId().toString());
         productDto.setName(product.getName());
-        productDto.setDescription(productDto.getDescription());
+        productDto.setDescription(product.getDescription());
         productDto.setCategory(product.getCategory().name());
         productDto.setStartBiddingPrice(product.getStartingPrice().toString());
         productDto.setEndDateTime(product.getEndDateTime().toString());
+
+        Integer max = getMaxBidValue(product.getBidList());
+        productDto.setCurrentBidPrice(max.toString());
+
+        Integer loggedUserMaxValue = getLoggedUserBiggestBid(product, email);
+        productDto.setLoggedUserMaxBid(loggedUserMaxValue.toString());
 
         String imageAsString = Base64.encodeBase64String(product.getImage());
         productDto.setImage(imageAsString);
 
         return productDto;
+    }
+
+    private Integer getLoggedUserBiggestBid(Product product, String email) {
+        List<Bid> bidList = product.getBidList();
+        List<Bid> loggedUserBidList = new ArrayList<>();
+        for(Bid bid : bidList){
+            if(bid.getUser().getEmail().equals(email)){
+                loggedUserBidList.add(bid);
+            }
+        }
+       Integer max = getMaxBidValue(loggedUserBidList);
+        return max;
+    }
+
+    private Integer getMaxBidValue(List<Bid> bidList) {
+        Integer max = 0;
+        for(Bid bid : bidList){
+            if(max<bid.getValue()){
+                max = bid.getValue();
+            }
+        }
+        return max;
     }
 }

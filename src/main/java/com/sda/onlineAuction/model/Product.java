@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +19,11 @@ public class Product {
     private Integer startingPrice;
     private Category category;
     private LocalDateTime endDateTime;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User winner;
     @Lob
     private byte[] image;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    private List<Bid> bidList;
 }

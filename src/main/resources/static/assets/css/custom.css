@@ -2,3 +2,16 @@
     color: red;
 
 }
+
+form.registerForm,
+form.addItemFrom,
+for.loginPage,
+div.homePage{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 80px;
+
+}
+div.homePage{
+    width: auto;
+}
